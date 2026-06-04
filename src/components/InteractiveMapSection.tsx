@@ -1,10 +1,53 @@
 import React, { useState } from 'react';
-import { MapPin, Info, Globe, Compass, Sparkles, CheckCircle2, Plane, Hotel, Star, Award } from 'lucide-react';
+import { MapPin, Info, Globe, Compass, Sparkles, CheckCircle2, Plane, Hotel, Star, Award, ChevronLeft, ChevronRight } from 'lucide-react';
 import { auditionZones, javaTourPoints } from '../data';
+import { motion, AnimatePresence } from 'motion/react';
 
 export default function InteractiveMapSection() {
   const [selectedRegionId, setSelectedRegionId] = useState<string>('jawa');
   const [hoveredRegionId, setHoveredRegionId] = useState<string | null>(null);
+  const [direction, setDirection] = useState<'left' | 'right'>('right');
+
+  const regionIds = ['sumatera', 'kalimantan', 'sulawesi', 'bali', 'jawa'];
+  const currentIndex = regionIds.indexOf(selectedRegionId);
+
+  const selectRegion = (id: string) => {
+    const curIdx = regionIds.indexOf(selectedRegionId);
+    const newIdx = regionIds.indexOf(id);
+    if (newIdx !== curIdx) {
+      setDirection(newIdx > curIdx ? 'right' : 'left');
+      setSelectedRegionId(id);
+    }
+  };
+
+  const handlePrev = () => {
+    setDirection('left');
+    const prevIndex = (currentIndex - 1 + regionIds.length) % regionIds.length;
+    setSelectedRegionId(regionIds[prevIndex]);
+  };
+
+  const handleNext = () => {
+    setDirection('right');
+    const nextIndex = (currentIndex + 1) % regionIds.length;
+    setSelectedRegionId(regionIds[nextIndex]);
+  };
+
+  const slideVariants = {
+    initial: (dir: 'left' | 'right') => ({
+      x: dir === 'right' ? 60 : -60,
+      opacity: 0
+    }),
+    animate: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.25, ease: 'easeOut' }
+    },
+    exit: (dir: 'left' | 'right') => ({
+      x: dir === 'right' ? -60 : 60,
+      opacity: 0,
+      transition: { duration: 0.2, ease: 'easeIn' }
+    })
+  };
 
   const selectedZone = auditionZones.find(z => z.id === selectedRegionId) || auditionZones[0];
 
@@ -76,7 +119,7 @@ export default function InteractiveMapSection() {
                 </h3>
               </div>
               <span className="self-start sm:self-auto text-[10px] text-zinc-400 font-mono bg-zinc-950 border border-zinc-900 px-3 py-1.5 rounded tracking-wider flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping flex-shrink-0" />
                 KLIK PULAU UNTUK DETAIL SUB-ZONA
               </span>
             </div>
@@ -94,9 +137,10 @@ export default function InteractiveMapSection() {
                 <div>AUDITION_HUB: <span className="text-emerald-400">{activeRegion?.hubCity.toUpperCase() || "N/A"}</span></div>
               </div>
 
-              {/* Graphic island SVG paths */}
-              <div className="absolute inset-0 pointer-events-none flex items-center justify-center p-2">
-                <svg viewBox="0 0 800 450" className="w-full h-full select-none pointer-events-auto">
+              {/* Graphic island SVG paths and markers in an aspect-ratio matched wrapper */}
+              <div className="absolute inset-0 flex items-center justify-center p-2 pointer-events-none">
+                <div className="relative aspect-[16/9] w-full max-h-full flex items-center justify-center">
+                  <svg viewBox="0 0 800 450" className="w-full h-full select-none pointer-events-auto">
                   {/* Grid overlay lines inside SVG for alignment and tech aesthetic */}
                   <g stroke="#0f0f11" strokeWidth="0.8" strokeDasharray="3,6" className="pointer-events-none">
                     <line x1="100" y1="0" x2="100" y2="450" />
@@ -327,42 +371,46 @@ export default function InteractiveMapSection() {
                     {/* Surabaya */}
                     <circle cx="380" cy="326" r="3" className="fill-rose-500 opacity-60" />
                   </g>
-                </svg>
+                  </svg>
+                  
+                  {/* Glowing interactive markers positioned precisely as popovers, positioned relative to the aspect 16/9 box */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    {regions.map((reg) => {
+                      const isActive = reg.id === selectedRegionId;
+                      return (
+                        <button
+                          key={reg.id}
+                          onClick={() => setSelectedRegionId(reg.id)}
+                          style={{ left: `${(reg.anchor.x / 800) * 100}%`, top: `${(reg.anchor.y / 450) * 100}%` }}
+                          className="absolute -translate-x-1/2 -translate-y-1/2 group p-2.5 cursor-pointer pointer-events-auto transition-all duration-300 z-20 outline-none"
+                        >
+                          <span className="relative flex h-5 w-5">
+                            {isActive && (
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-emerald-500"></span>
+                            )}
+                            
+                            <span className={`relative inline-flex rounded-full h-5 w-5 border border-white/80 items-center justify-center transition-all ${
+                              isActive 
+                                ? 'bg-emerald-500 scale-125 shadow-[0_0_12px_rgba(16,185,129,0.8)]' 
+                                : 'bg-zinc-950 hover:bg-zinc-900 border-zinc-700 hover:border-white'
+                            }`}>
+                              <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-white' : 'bg-zinc-400'}`} />
+                            </span>
+                          </span>
+
+                          {/* Desktop label */}
+                          <span className={`absolute top-6 left-1/2 -translate-x-1/2 bg-zinc-950 border text-[9px] font-mono whitespace-nowrap px-2 py-0.5 rounded transition-all pointer-events-none uppercase shadow-lg ${
+                            isActive ? 'text-white border-emerald-500 font-extrabold' : 'text-zinc-500 group-hover:text-zinc-300 border-zinc-900'
+                          }`}>
+                            {reg.name}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                </div>
               </div>
-
-              {/* Glowing interactive markers positioned precisely as popovers */}
-              {regions.map((reg) => {
-                const isActive = reg.id === selectedRegionId;
-                return (
-                  <button
-                    key={reg.id}
-                    onClick={() => setSelectedRegionId(reg.id)}
-                    style={{ left: `${(reg.anchor.x / 800) * 100}%`, top: `${(reg.anchor.y / 450) * 100}%` }}
-                    className="absolute -translate-x-1/2 -translate-y-1/2 group p-2.5 cursor-pointer transition-all duration-300 z-20 outline-none"
-                  >
-                    <span className="relative flex h-5 w-5">
-                      {isActive && (
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-emerald-500"></span>
-                      )}
-                      
-                      <span className={`relative inline-flex rounded-full h-5 w-5 border border-white/80 items-center justify-center transition-all ${
-                        isActive 
-                          ? 'bg-emerald-500 scale-125 shadow-[0_0_12px_rgba(16,185,129,0.8)]' 
-                          : 'bg-zinc-950 hover:bg-zinc-900 border-zinc-700 hover:border-white'
-                      }`}>
-                        <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-white' : 'bg-zinc-400'}`} />
-                      </span>
-                    </span>
-
-                    {/* Desktop label */}
-                    <span className={`absolute top-6 left-1/2 -translate-x-1/2 bg-zinc-950 border text-[9px] font-mono whitespace-nowrap px-2 py-0.5 rounded transition-all pointer-events-none uppercase shadow-lg ${
-                      isActive ? 'text-white border-emerald-500 font-extrabold' : 'text-zinc-500 group-hover:text-zinc-300 border-zinc-900'
-                    }`}>
-                      {reg.name}
-                    </span>
-                  </button>
-                );
-              })}
 
               {/* Dynamic Legend on bottom of the map container */}
               <div className="absolute bottom-3 left-3 right-3 flex flex-wrap justify-between items-center gap-2 bg-black/85 border border-zinc-900/90 rounded px-3.5 py-2 text-[10px] font-mono text-zinc-400 z-10 backdrop-blur-md">
@@ -427,105 +475,180 @@ export default function InteractiveMapSection() {
           <div className="lg:col-span-12 xl:col-span-5 flex flex-col gap-6">
             
             {/* Main Selection Details card */}
-            <div className="bg-[#0b0b0d] border border-zinc-900 rounded-xl p-6 sm:p-7 space-y-6 shadow-xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-1.5 h-full bg-gradient-to-b from-emerald-500 to-lime-400" />
-              
-              <div className="space-y-1.5">
+            <div className="bg-[#0b0b0d] border border-zinc-900 rounded-xl p-5 sm:p-7 space-y-5 shadow-xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-1.5 h-full bg-gradient-to-b from-emerald-500 to-lime-400 z-10" />
+
+              {/* Slider Header Control & Info text */}
+              <div className="flex items-center justify-between border-b border-zinc-900 pb-3">
                 <div className="text-[10px] text-emerald-400 font-mono tracking-widest font-black uppercase flex items-center gap-1.5">
                   <Globe className="w-3.5 h-3.5 animate-pulse" /> DETAIL ZONA SELEKSI NASIONAL
                 </div>
-                <h3 className="font-heading text-2xl font-black text-white uppercase tracking-tight">
-                  PULAU {selectedZone.region}
-                </h3>
-              </div>
-
-              {/* Sub-zones Grid */}
-              <div className="space-y-3">
-                <span className="text-[10px] text-zinc-500 font-mono block border-b border-zinc-900 pb-1 uppercase tracking-wider">PEMBAGIAN SUB-ZONA:</span>
-                <div className="space-y-2.5">
-                  {selectedZone.zones.map((zoneText, idx) => (
-                    <div key={idx} className="flex items-start gap-3 bg-zinc-950 p-3.5 rounded border border-zinc-900/80 hover:border-zinc-800 transition-colors">
-                      <Sparkles className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-xs text-zinc-200 leading-relaxed font-sans">{zoneText}</span>
-                    </div>
-                  ))}
+                {/* Swipe helper tag for mobile layout */}
+                <div className="flex items-center gap-1.5 bg-zinc-900/60 border border-zinc-800/40 px-2 py-0.5 rounded text-[9px] text-zinc-500 font-mono">
+                  <span>SWIPE CARD / TAPS</span>
+                  <span className="animate-pulse text-emerald-400">↔</span>
                 </div>
               </div>
 
-              {/* Venue details */}
-              <div className="space-y-2 bg-gradient-to-r from-zinc-950 to-[#0e1612] p-4 border border-emerald-950/40 rounded-lg">
-                <span className="text-[9px] text-[#A3A3A3] font-mono uppercase block tracking-wider">LOKASI AUDISI LIVE:</span>
-                <div className="flex items-center gap-2 text-emerald-400 font-black text-sm uppercase">
-                  <MapPin className="w-4 h-4 text-emerald-400 animate-bounce" />
-                  DI AUDISI DI KOTA: {selectedZone.liveAuditionVenue}
-                </div>
+              {/* Carousel Content with Drag Handlers */}
+              <div className="relative overflow-hidden min-h-[440px]">
+                <AnimatePresence mode="wait" custom={direction}>
+                  <motion.div
+                    key={selectedRegionId}
+                    custom={direction}
+                    variants={slideVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.4}
+                    onDragEnd={(e, info) => {
+                      const swipeThreshold = 50;
+                      if (info.offset.x < -swipeThreshold) {
+                        handleNext();
+                      } else if (info.offset.x > swipeThreshold) {
+                        handlePrev();
+                      }
+                    }}
+                    className="space-y-5 cursor-grab active:cursor-grabbing touch-pan-y"
+                  >
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-heading text-2xl font-black text-white uppercase tracking-tight">
+                        PULAU {selectedZone.region}
+                      </h3>
+                      {/* Left and Right navigation indicators */}
+                      <div className="flex items-center gap-1 z-10" onClick={(e) => e.stopPropagation()}>
+                        <button 
+                          onClick={handlePrev}
+                          title="Sebelumnya"
+                          className="p-1 px-2 rounded bg-zinc-950 border border-zinc-900 hover:border-zinc-700 hover:bg-zinc-900 text-zinc-400 hover:text-white transition-all duration-200 cursor-pointer flex items-center justify-center"
+                        >
+                          <ChevronLeft className="w-3.5 h-3.5" />
+                        </button>
+                        <span className="font-mono text-[10px] text-zinc-500 min-w-[32px] text-center">
+                          {currentIndex + 1} / {regionIds.length}
+                        </span>
+                        <button 
+                          onClick={handleNext}
+                          title="Berikutnya"
+                          className="p-1 px-2 rounded bg-zinc-950 border border-zinc-900 hover:border-zinc-700 hover:bg-zinc-900 text-zinc-400 hover:text-white transition-all duration-200 cursor-pointer flex items-center justify-center"
+                        >
+                          <ChevronRight className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Sub-zones Grid */}
+                    <div className="space-y-3">
+                      <span className="text-[10px] text-zinc-500 font-mono block border-b border-zinc-900 pb-1 uppercase tracking-wider">PEMBAGIAN SUB-ZONA:</span>
+                      <div className="space-y-2.5">
+                        {selectedZone.zones.map((zoneText, idx) => (
+                          <div key={idx} className="flex items-start gap-3 bg-zinc-950 p-3.5 rounded border border-zinc-900/80 hover:border-zinc-800 transition-colors">
+                            <Sparkles className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                            <span className="text-xs text-zinc-200 leading-relaxed font-sans">{zoneText}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Venue details */}
+                    <div className="space-y-2 bg-gradient-to-r from-zinc-950 to-[#0e1612] p-4 border border-emerald-950/40 rounded-lg">
+                      <span className="text-[9px] text-[#A3A3A3] font-mono uppercase block tracking-wider">LOKASI AUDISI LIVE:</span>
+                      <div className="flex items-center gap-2 text-emerald-400 font-black text-sm uppercase">
+                        <MapPin className="w-4 h-4 text-emerald-400 animate-bounce" />
+                        DI AUDISI DI KOTA: {selectedZone.liveAuditionVenue}
+                      </div>
+                    </div>
+
+                    {/* Selection Rules & Mechanics section */}
+                    <div className="space-y-3.5 border-t border-zinc-900/80 pt-5">
+                      <span className="text-[10px] text-zinc-500 font-mono block uppercase tracking-wider">MEKANISME SELEKSI RESMI:</span>
+                      
+                      <div className="grid grid-cols-1 gap-2.5">
+                        {/* Step 1 */}
+                        <div className="flex items-start gap-3 bg-zinc-950/40 p-3 rounded border border-zinc-900/60">
+                          <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 flex items-center justify-center text-[10px] font-mono font-bold flex-shrink-0 mt-0.5">
+                            1
+                          </div>
+                          <div className="space-y-0.5">
+                            <p className="text-xs text-white font-bold leading-none">Penyaringan 3 Perwakilan</p>
+                            <p className="text-[11px] text-zinc-400 font-sans">
+                              Dari setiap Zona terpilih **3 wakil terbaik** yang lolos seleksi demo online awal.
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Step 2 */}
+                        <div className="flex items-start gap-3 bg-zinc-950/40 p-3 rounded border border-zinc-900/60">
+                          <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 flex items-center justify-center text-[10px] font-mono font-bold flex-shrink-0 mt-0.5">
+                            2
+                          </div>
+                          <div className="space-y-0.5">
+                            <p className="text-xs text-white font-bold leading-none">Babak Live Audition Daerah</p>
+                            <p className="text-[11px] text-zinc-400 font-sans">
+                              Ke-3 perwakilan daerah di-audisi secara tatap muka langsung di kota host ({selectedZone.liveAuditionVenue || "Solo"}).
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Step 3 */}
+                        <div className="flex items-start gap-3 bg-zinc-950/40 p-3 rounded border border-zinc-900/60">
+                          <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 flex items-center justify-center text-[10px] font-mono font-bold flex-shrink-0 mt-0.5">
+                            3
+                          </div>
+                          <div className="space-y-0.5">
+                            <p className="text-xs text-white font-bold leading-none">Pemilihan 1 Wakil Finalis</p>
+                            <p className="text-[11px] text-zinc-400 font-sans">
+                              Juri ahli akan memilih **1 gitaris terbaik** sebagai representasi mutlak dari sub-zona tersebut menuju klimaks pertunjukan.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Trust guarantee card */}
+                      <div className="bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border border-emerald-500/20 rounded-xl p-4 flex items-start gap-3 shadow-md">
+                        <div className="p-2 bg-emerald-500/20 rounded-lg text-emerald-400 flex-shrink-0 border border-emerald-500/20">
+                          <Plane className="w-4 h-4" />
+                        </div>
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-xs text-white font-black uppercase tracking-wider">Garansi 100% Ditanggung Panitia</span>
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                          </div>
+                          <p className="text-[11px] text-zinc-300 font-sans leading-relaxed">
+                            Tenang berpikir kreatif saja! Semua biaya transportasi dan akomodasi finalis terpilih akan **ditanggung sepenuhnya** oleh pihak panitia penyelenggara.
+                          </p>
+                        </div>
+                      </div>
+
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
               </div>
 
-              {/* Selection Rules & Mechanics section */}
-              <div className="space-y-3.5 border-t border-zinc-900/80 pt-5">
-                <span className="text-[10px] text-zinc-500 font-mono block uppercase tracking-wider">MEKANISME SELEKSI RESMI:</span>
-                
-                {/* Visual list of 3 steps representing the actual selection mechanism */}
-                <div className="grid grid-cols-1 gap-2.5">
-                  
-                  {/* Step 1 */}
-                  <div className="flex items-start gap-3 bg-zinc-950/40 p-3 rounded border border-zinc-900/60">
-                    <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 flex items-center justify-center text-[10px] font-mono font-bold flex-shrink-0 mt-0.5">
-                      1
-                    </div>
-                    <div className="space-y-0.5">
-                      <p className="text-xs text-white font-bold leading-none">Penyaringan 3 Perwakilan</p>
-                      <p className="text-[11px] text-zinc-400 font-sans">
-                        Dari setiap Zona terpilih **3 wakil terbaik** yang lolos seleksi demo online awal.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Step 2 */}
-                  <div className="flex items-start gap-3 bg-zinc-950/40 p-3 rounded border border-zinc-900/60">
-                    <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 flex items-center justify-center text-[10px] font-mono font-bold flex-shrink-0 mt-0.5">
-                      2
-                    </div>
-                    <div className="space-y-0.5">
-                      <p className="text-xs text-white font-bold leading-none">Babak Live Audition Daerah</p>
-                      <p className="text-[11px] text-zinc-400 font-sans">
-                        Ke-3 perwakilan daerah di-audisi secara tatap muka langsung di kota host ({selectedZone.liveAuditionVenue || "Solo"}).
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Step 3 */}
-                  <div className="flex items-start gap-3 bg-zinc-950/40 p-3 rounded border border-zinc-900/60">
-                    <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 flex items-center justify-center text-[10px] font-mono font-bold flex-shrink-0 mt-0.5">
-                      3
-                    </div>
-                    <div className="space-y-0.5">
-                      <p className="text-xs text-white font-bold leading-none">Pemilihan 1 Wakil Finalis</p>
-                      <p className="text-[11px] text-zinc-400 font-sans">
-                        Juri ahli akan memilih **1 gitaris terbaik** sebagai representasi mutlak dari sub-zona tersebut menuju klimaks pertunjukan.
-                      </p>
-                    </div>
-                  </div>
-
-                </div>
-
-                {/* Trust guarantee card to feature the accommodation and transportation guarantee explicitly */}
-                <div className="bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border border-emerald-500/20 rounded-xl p-4 flex items-start gap-3 shadow-md">
-                  <div className="p-2 bg-emerald-500/20 rounded-lg text-emerald-400 flex-shrink-0 border border-emerald-500/20">
-                    <Plane className="w-4 h-4" />
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-xs text-white font-black uppercase tracking-wider">Garansi 100% Ditanggung Panitia</span>
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                    </div>
-                    <p className="text-[11px] text-zinc-300 font-sans leading-relaxed">
-                      Tenang berpikir kreatif saja! Semua biaya transportasi dan akomodasi finalis terpilih akan **ditanggung sepenuhnya** oleh pihak panitia penyelenggara.
-                    </p>
-                  </div>
-                </div>
-
+              {/* Dot Indicators at the absolute bottom with short titles for clear map/carousel synchronization */}
+              <div className="flex justify-center items-center gap-1.5 border-t border-zinc-900 pt-4 overflow-x-auto scrollbar-none">
+                {regionIds.map((regId) => {
+                  const regName = auditionZones.find(z => z.id === regId)?.region.split(' ')[0] || regId;
+                  const isActive = regId === selectedRegionId;
+                  return (
+                    <button
+                      key={regId}
+                      onClick={() => selectRegion(regId)}
+                      className={`px-2.5 py-1.5 rounded-lg font-mono text-[9px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer flex items-center gap-1 border ${
+                        isActive
+                          ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 shadow-[0_0_8px_rgba(16,185,129,0.15)] scale-105 font-bold'
+                          : 'bg-zinc-950/40 border-zinc-900/60 text-zinc-500 hover:text-zinc-400 hover:bg-zinc-900/20'
+                      }`}
+                    >
+                      <span className={`w-1 h-1 rounded-full flex-shrink-0 ${isActive ? 'bg-emerald-400 animate-ping' : 'bg-transparent'}`} />
+                      {regName}
+                    </button>
+                  );
+                })}
               </div>
+
             </div>
 
             {/* Special expansion showing Jawa Tour list only if "jawa" is selected, or a preview summary */}
@@ -581,17 +704,71 @@ export default function InteractiveMapSection() {
                 </div>
               </div>
             ) : (
-              <div className="bg-[#0b0b0d] border border-zinc-900 rounded-xl p-5 space-y-3.5 shadow-xl">
-                <span className="text-[10px] text-zinc-500 font-mono block uppercase tracking-wider">DEWAN JURI VIRTUOSO AHLI</span>
-                <p className="text-xs text-zinc-400 leading-relaxed font-sans">
-                  Para finalis yang tersaring dari masing-masing sub-zona pulau luar Jawa akan diterbangkan langsung dan berhadapan tatap muka untuk dinilai secara orisinil oleh maestro gitaris seperti Dewa Budjana, Eet Sjahranie, Pay Burman, dan Balawan.
-                </p>
-                <div className="flex items-center gap-2 text-xs text-emerald-400 font-black uppercase font-mono cursor-pointer hover:text-emerald-300 transition-colors">
-                  <a href="#judges-section" className="flex items-center gap-1.5">
-                    <span>Lihat Profil Juri Virtuoso</span> <span>↓</span>
-                  </a>
+              <>
+                {/* On mobile, we ALWAYS show the Rute Detail 12 Titik Jawa list so users can look at it even if they selected another region! */}
+                <div className="block lg:hidden bg-gradient-to-b from-[#111] to-[#0a0a0b] border-2 border-emerald-500/20 rounded-xl p-6 space-y-4 shadow-xl">
+                  <div className="flex justify-between items-center border-b border-zinc-800 pb-2">
+                    <span className="font-heading text-xs font-black text-white uppercase tracking-wider flex items-center gap-1">
+                      <Award className="w-3.5 h-3.5 text-emerald-400" />
+                      RUTE DETAIL 12 TITIK JAWA (TRC 2026)
+                    </span>
+                    <span className="text-[9px] bg-emerald-500 text-black px-2 py-0.5 font-black uppercase rounded">
+                      GMG CONCERT
+                    </span>
+                  </div>
+
+                  {/* List of 12 Points */}
+                  <div className="max-h-[300px] overflow-y-auto space-y-2 pr-2 scrollbar-thin">
+                    {javaTourPoints.map((point, index) => (
+                      <div 
+                        key={index} 
+                        className={`flex items-center justify-between p-3 rounded-lg text-xs border transition-all duration-200 ${
+                          point.type === 'Klimaks' 
+                            ? 'bg-amber-500/5 border-amber-500/30 text-amber-200 font-extrabold shadow-[0_0_10px_rgba(245,158,11,0.05)]'
+                            : point.type === 'City to City' 
+                              ? 'bg-red-500/5 border-red-500/20 text-red-100 font-semibold shadow-[0_0_8px_rgba(239,68,68,0.02)]'
+                              : 'bg-zinc-950/60 border-zinc-900 hover:border-zinc-800 text-zinc-400'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <span className={`w-2 h-2 rounded-full ${
+                            point.type === 'Klimaks'
+                              ? 'bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.8)]'
+                              : point.type === 'City to City'
+                                ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]'
+                                : 'bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.6)]'
+                          }`} />
+                          <span className="tracking-tight">{point.city}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          {point.venue && <span className="font-mono text-[10px] text-zinc-600">{point.venue}</span>}
+                          <span className={`text-[9px] font-mono font-black px-2 py-0.5 rounded tracking-wide border uppercase ${
+                            point.type === 'Klimaks'
+                              ? 'bg-amber-400/10 text-amber-400 border-amber-400/20'
+                              : point.type === 'City to City'
+                                ? 'bg-red-500/10 text-red-400 border-red-500/20'
+                                : 'bg-blue-500/10 text-blue-400 border-blue-500/20'
+                          }`}>
+                            {point.type === 'Klimaks' ? 'Klimaks City to City' : point.type}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+
+                <div className="bg-[#0b0b0d] border border-zinc-900 rounded-xl p-5 space-y-3.5 shadow-xl">
+                  <span className="text-[10px] text-zinc-500 font-mono block uppercase tracking-wider">DEWAN JURI VIRTUOSO AHLI</span>
+                  <p className="text-xs text-zinc-400 leading-relaxed font-sans">
+                    Para finalis yang tersaring dari masing-masing sub-zona pulau luar Jawa akan diterbangkan langsung dan berhadapan tatap muka untuk dinilai secara orisinil oleh maestro gitaris seperti Dewa Budjana, Eet Sjahranie, Pay Burman, dan Balawan.
+                  </p>
+                  <div className="flex items-center gap-2 text-xs text-emerald-400 font-black uppercase font-mono cursor-pointer hover:text-emerald-300 transition-colors">
+                    <a href="#judges-section" className="flex items-center gap-1.5">
+                      <span>Lihat Profil Juri Virtuoso</span> <span>↓</span>
+                    </a>
+                  </div>
+                </div>
+              </>
             )}
 
           </div>

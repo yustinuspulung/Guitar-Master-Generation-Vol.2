@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Flame, Menu, X, ArrowRight, ShieldCheck, HelpCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Flame, Menu, X, ArrowRight, ShieldCheck, HelpCircle, Sun, Moon } from 'lucide-react';
 import HeroSection from './components/HeroSection';
 import StatsSection from './components/StatsSection';
 import InteractiveMapSection from './components/InteractiveMapSection';
@@ -8,6 +8,29 @@ import FormSection from './components/FormSection';
 
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('gmg-theme');
+    return saved !== 'light'; // default to dark mode (true)
+  });
+
+  // Sync theme status to DOM class list
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    } else {
+      document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode(prev => {
+      const next = !prev;
+      localStorage.setItem('gmg-theme', next ? 'dark' : 'light');
+      return next;
+    });
+  };
 
   // Smooth scroll helper
   const scrollToSection = (id: string) => {
@@ -27,7 +50,7 @@ export default function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0C0C0C] text-white selection:bg-crimson selection:text-white font-sans">
+    <div className={`min-h-screen ${isDarkMode ? 'bg-[#0C0C0C] text-white' : 'bg-[#F9FAFB] text-zinc-900'} selection:bg-crimson selection:text-white font-sans transition-all duration-300`}>
       
       {/* Dynamic Top Sticky Header */}
       <header className="sticky top-0 z-50 bg-[#0C0C0C]/90 backdrop-blur-md border-b border-zinc-90 w-full px-4 md:px-8 py-3.5 transition-all">
@@ -69,6 +92,13 @@ export default function App() {
 
           {/* Right Header Controls */}
           <div className="hidden lg:flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className="p-2 px-2.5 rounded border border-zinc-900 bg-zinc-950/60 text-zinc-400 hover:text-white transition-all cursor-pointer flex items-center justify-center hover:border-zinc-700"
+              title={isDarkMode ? "Aktifkan Light Mode" : "Aktifkan Dark Mode"}
+            >
+              {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-500" />}
+            </button>
             <span className="text-[10px] text-zinc-500 font-mono flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               LIVE SECURE ENCRYPTION
@@ -85,10 +115,17 @@ export default function App() {
           {/* Mobile menu triggers */}
           <div className="flex lg:hidden items-center gap-3">
             <button
+              onClick={toggleTheme}
+              className="p-2 rounded border border-zinc-90 bg-zinc-950/60 text-zinc-400 hover:text-white transition-all cursor-pointer flex items-center justify-center hover:border-zinc-700"
+              title={isDarkMode ? "Aktifkan Light Mode" : "Aktifkan Dark Mode"}
+            >
+              {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-500" />}
+            </button>
+            <button
               onClick={() => scrollToSection('investment-form-section')}
               className="px-3.5 py-1.5 bg-crimson text-white font-heading text-[10px] font-black tracking-widest rounded glow-red cursor-pointer"
             >
-              PROPOSAL
+              LET'S TALK
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -125,6 +162,25 @@ export default function App() {
                   {link.label}
                 </button>
               ))}
+              
+              {/* Theme switch row inside mobile drawer */}
+              <div className="flex items-center justify-between pt-4 border-t border-zinc-900 mt-2">
+                <span className="font-heading text-[10px] font-black tracking-widest text-zinc-500 uppercase">TAMPILAN</span>
+                <button
+                  onClick={toggleTheme}
+                  className="flex items-center gap-1.5 p-1.5 px-3 rounded bg-zinc-950 border border-zinc-900 text-xs font-heading font-black tracking-widest text-zinc-400 hover:text-white transition-all cursor-pointer"
+                >
+                  {isDarkMode ? (
+                    <>
+                      <Sun className="w-3.5 h-3.5 text-amber-400 animate-spin-slow" /> LIGHT
+                    </>
+                  ) : (
+                    <>
+                      <Moon className="w-3.5 h-3.5 text-indigo-500" /> DARK
+                    </>
+                  )}
+                </button>
+              </div>
             </nav>
           </div>
 

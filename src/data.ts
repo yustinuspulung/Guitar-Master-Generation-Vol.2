@@ -110,7 +110,7 @@ export const mainJudges: Juror[] = [
     band: "ZiFactor",
     bio: "Pioneer gitar metal progresif Indonesia, pendiri utama The Rock Campus yang gigih melestarikan gerakan rock independen selama 11 tahun tanpa lelah.",
     imageUrl: "https://img.okezone.com/content/2019/10/06/205/2113524/konser-untuk-republik-dicibir-ezra-simanjuntak-angkat-bicara-Y25Kh7K411.jpg",
-    articleUrl: "https://celebrity.okezone.com/read/2019/10/06/205/2113524/konser-untuk-republik-dicibir-ezra-simanjuntak-angkat-bicara",
+    articleUrl: "https://rockdanmetalzone.blogspot.com/2017/09/ezra-simanjuntak.html",
     specialty: "High-Speed Arpeggios, Metal Composition, Industry Mentorship"
   },
   {
@@ -120,7 +120,7 @@ export const mainJudges: Juror[] = [
     band: "BIP / Ex-Slank",
     bio: "Komposer legendaris Indonesia sekaligus gitaris yang membentuk peta musik rock nasional. Pencipta puluhan hits tersohor di tanah air.",
     imageUrl: "https://yt3.googleusercontent.com/ytc/AIdro_lZ4JyYUUH-yZY_c1xGPv9QwR872p7xn4XoCvOl-o0DDbg=s900-c-k-c0x00ffffff-no-rj",
-    articleUrl: "https://www.youtube.com/@JendralMaya",
+    articleUrl: "https://fgnguitars.com/artist/?artist_id=3093",
     specialty: "Melodic Hooks, Record Production, Harmonic Phrasing"
   },
   {

@@ -100,3 +100,635 @@ body {
   background: #E62129;
 }
 
+/* LIGHT MODE - ELEGANT PREMIUM OFF-WHITE & SLATE THEME OVERRIDES */
+html.light,
+.light {
+  --color-main-bg: #F8FAFC;
+  --color-main-text: #0F172A;
+  --color-card-bg: #FFFFFF;
+  --color-card-inner: #F1F5F9;
+  --color-border: #E2E8F0;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748B;
+  
+  /* Tailwind CSS v4 Theme Variable Overrides */
+  --color-dark: #F8FAFC !important;
+  --color-card-dark: #FFFFFF !important;
+  --color-steel: #334155 !important;
+}
+
+html.light,
+html.light body,
+.light,
+.light #root {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+/* Base backgrounds & text colors */
+html.light .bg-\[\#0C0C0C\], .light .bg-\[\#0C0C0C\],
+html.light .bg-\[\#070707\], .light .bg-\[\#070707\],
+html.light .bg-dark, .light .bg-dark {
+  background-color: #F8FAFC !important;
+}
+
+html.light .bg-\[\#121212\], .light .bg-\[\#121212\],
+html.light .bg-\[\#0c0c0e\], .light .bg-\[\#0c0c0e\],
+html.light .bg-\[\#0b0b0d\], .light .bg-\[\#0b0b0d\],
+html.light .bg-\[\#0e0e0e\], .light .bg-\[\#0e0e0e\],
+html.light .bg-\[\#0f0f0f\], .light .bg-\[\#0f0f0f\],
+html.light .bg-zinc-950, .light .bg-zinc-950 {
+  background-color: #FFFFFF !important;
+}
+
+html.light .bg-\[\#1A1A1A\], .light .bg-\[\#1A1A1A\],
+html.light .bg-\[\#0a0a0a\], .light .bg-\[\#0a0a0a\],
+html.light .bg-zinc-900, .light .bg-zinc-900 {
+  background-color: #F1F5F9 !important;
+}
+
+/* Jawa tour container light override */
+html.light .bg-gradient-to-b.from-\[\#111\].to-\[\#0a0a0b\],
+.light .bg-gradient-to-b.from-\[\#111\].to-\[\#0a0a0b\] {
+  background: linear-gradient(to bottom, #FFFFFF, #F1F5F9) !important;
+  color: #0F172A !important;
+  border-color: rgba(16, 185, 129, 0.4) !important;
+}
+
+/* Borders */
+html.light .border-zinc-900, .light .border-zinc-900,
+html.light .border-zinc-800, .light .border-zinc-800,
+html.light .border-zinc-90, .light .border-zinc-90 {
+  border-color: #E2E8F0 !important;
+}
+
+/* Texts */
+html.light .text-white, .light .text-white,
+html.light .text-zinc-100, .light .text-zinc-100 {
+  color: #0F172A !important;
+}
+
+html.light .text-zinc-200, .light .text-zinc-200,
+html.light *[class*="text-zinc-200"], .light *[class*="text-zinc-200"] {
+  color: #1E293B !important;
+}
+
+/* Complete Wildcard Color Overrides for Precise Selector Target Matching & High Color Accessibilities */
+html.light *[class*="text-slate-250"],
+.light *[class*="text-slate-250"],
+html.light *[class*="text-slate-300"],
+.light *[class*="text-slate-300"],
+html.light .text-slate-300,
+.light .text-slate-300 {
+  color: #1E293B !important;
+}
+
+/* Force text-slate-200 and text-zinc-300 to be highly readable slate color under light mode */
+html.light *[class*="text-slate-200"],
+.light *[class*="text-slate-200"],
+html.light .text-slate-200,
+.light .text-slate-200,
+html.light *[class*="text-zinc-300"],
+.light *[class*="text-zinc-300"],
+html.light .text-zinc-300,
+.light .text-zinc-300 {
+  color: #1E293B !important;
+}
+
+/* Blue-400 color overrides in light mode for the club-to-club tag and labels to achieve perfect AAA rating contrast */
+html.light *[class*="text-blue-400"],
+.light *[class*="text-blue-400"],
+html.light .text-blue-400,
+.light .text-blue-400 {
+  color: #1D4ED8 !important; /* Premium dark blue-700 with high color contrast */
+}
+
+html.light *[class*="bg-blue-500/10"],
+.light *[class*="bg-blue-500/10"],
+html.light .bg-blue-500\/10,
+.light .bg-blue-500\/10 {
+  background-color: rgba(59, 130, 246, 0.15) !important; /* Bold accessible light blue background */
+}
+
+html.light *[class*="border-blue-500/20"],
+.light *[class*="border-blue-500/20"],
+html.light .border-blue-500\/20,
+.light .border-blue-500\/20 {
+  border-color: rgba(59, 130, 246, 0.35) !important;
+}
+
+/* Translucent bg overlays overrides under light mode to provide clear white/light gray solid contrast and hide dark/greyish containers */
+html.light *[class*="bg-card-dark/40"],
+.light *[class*="bg-card-dark/40"],
+html.light .bg-card-dark\/40,
+.light .bg-card-dark\/40 {
+  background-color: #F1F5F9 !important; /* Solid light grey for the 4 success highlights points */
+  border-color: #E2E8F0 !important;
+}
+
+html.light *[class*="bg-[#121212]/40"],
+.light *[class*="bg-[#121212]/40"],
+html.light .bg-\[\#121212\]\/40,
+.light .bg-\[\#121212\]\/40,
+html.light *[class*="bg-[#121212]/90"],
+.light *[class*="bg-[#121212]/90"],
+html.light .bg-\[\#121212\]\/90,
+.light .bg-\[\#121212\]\/90 {
+  background-color: #F8FAFC !important; /* Solid sleek light background for the YouTube/documentation container */
+  border-color: #E2E8F0 !important;
+}
+
+html.light *[class*="bg-zinc-950/40"],
+.light *[class*="bg-zinc-950/40"],
+html.light .bg-zinc-950\/40,
+.light .bg-zinc-950\/40,
+html.light *[class*="bg-zinc-950/60"],
+.light *[class*="bg-zinc-950/60"],
+html.light .bg-zinc-950\/60,
+.light .bg-zinc-950\/60 {
+  background-color: #F1F5F9 !important; /* Solid clean light grey backgrounds for route points list */
+  border-color: #E2E8F0 !important;
+}
+
+html.light *[class*="text-amber-200"],
+.light *[class*="text-amber-200"],
+html.light .text-amber-200,
+.light .text-amber-200 {
+  color: #92400E !important; /* Premium dark amber-800 for high accessibility contrast */
+}
+
+html.light *[class*="text-red-100"],
+.light *[class*="text-red-100"],
+html.light .text-red-100,
+.light .text-red-100 {
+  color: #991B1B !important; /* Premium dark red-800 for high accessibility contrast */
+}
+
+html.light *[class*="text-[#8B8B8B]"],
+.light *[class*="text-[#8B8B8B]"],
+html.light .text-\[\#8B8B8B\],
+.light .text-\[\#8B8B8B\] {
+  color: #334155 !important;
+}
+
+html.light *[class*="text-zinc-400"],
+.light *[class*="text-zinc-400"],
+html.light .text-zinc-400,
+.light .text-zinc-400 {
+  color: #334155 !important; /* Charcoal dark slate for paragraphs and cards descriptions */
+}
+
+html.light *[class*="text-zinc-500"],
+.light *[class*="text-zinc-500"],
+html.light .text-zinc-500,
+.light .text-zinc-500 {
+  color: #475569 !important;
+}
+
+html.light *[class*="text-zinc-600"],
+.light *[class*="text-zinc-600"],
+html.light .text-zinc-600,
+.light .text-zinc-600 {
+  color: #475569 !important; /* Ensure secondary and venue sub-text are beautifully contrasting */
+}
+
+html.light *[class*="text-emerald-400"],
+.light *[class*="text-emerald-400"],
+html.light .text-emerald-400,
+.light .text-emerald-400 {
+  color: #047857 !important; /* Emerald-700 green for high accessibility text contrast */
+}
+
+html.light *[class*="bg-emerald-500/5"],
+.light *[class*="bg-emerald-500/5"],
+html.light .bg-emerald-500\/5,
+.light .bg-emerald-500\/5 {
+  background-color: rgba(16, 185, 129, 0.12) !important; /* High volume green fill for readability */
+}
+
+html.light *[class*="border-emerald-500/15"],
+.light *[class*="border-emerald-500/15"],
+html.light .border-emerald-500\/15,
+.light .border-emerald-500\/15 {
+  border-color: rgba(16, 185, 129, 0.3) !important;
+}
+
+html.light .text-steel, .light .text-steel,
+html.light .text-\[\#8B8B8B\], .light .text-\[\#8B8B8B\] {
+  color: #334155 !important;
+}
+
+/* SVG interactive map overrides */
+html.light .fill-\[\#121214\], .light .fill-\[\#121214\] {
+  fill: #E2E8F0 !important;
+  stroke: #CBD5E1 !important;
+}
+
+html.light .fill-\[\#0d0d0f\], .light .fill-\[\#0d0d0f\] {
+  fill: #F1F5F9 !important;
+  stroke: #E2E8F0 !important;
+}
+
+html.light .fill-zinc-800, .light .fill-zinc-800,
+html.light .stroke-zinc-700, .light .stroke-zinc-700,
+html.light .stroke-zinc-800, .light .stroke-zinc-800 {
+  fill: #CBD5E1 !important;
+  stroke: #94A3B8 !important;
+}
+
+html.light .fill-zinc-600, .light .fill-zinc-600 {
+  fill: #475569 !important;
+}
+
+/* Hero grids */
+html.light .opacity-25, .light .opacity-25 {
+  opacity: 0.12 !important;
+}
+
+html.light .opacity-40, .light .opacity-40 {
+  opacity: 0.25 !important;
+}
+
+html.light .opacity-80, .light .opacity-80 {
+  opacity: 0.35 !important;
+}
+
+html.light .bg-zinc-950\/60, .light .bg-zinc-950\/60 {
+  background-color: rgba(241, 245, 249, 0.7) !important;
+}
+
+html.light .bg-zinc-950\/40, .light .bg-zinc-950\/40 {
+  background-color: rgba(241, 245, 249, 0.45) !important;
+}
+
+html.light .bg-zinc-900\/60, .light .bg-zinc-900\/60 {
+  background-color: rgba(241, 245, 249, 0.6) !important;
+}
+
+/* Sticky header */
+html.light header.sticky, .light header.sticky {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+}
+
+/* Custom cards and widgets */
+html.light .stat-box, .light .stat-box {
+  background: linear-gradient(90deg, rgba(230, 33, 41, 0.04) 0%, transparent 100%) !important;
+}
+
+html.light .judge-card, .light .judge-card {
+  background-color: #FFFFFF !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+html.light .bg-gradient-to-r.from-zinc-950.to-\[\#0e1612\],
+.light .bg-gradient-to-r.from-zinc-950.to-\[\#0e1612\] {
+  background: linear-gradient(to right, #F8FAFC, #ECFDF5) !important;
+  border-color: rgba(16, 185, 129, 0.2) !important;
+}
+
+/* Ensure form/whatsapp container looks brilliant */
+html.light #whatsapp-contact-card,
+.light #whatsapp-contact-card {
+  background-color: #FFFFFF !important;
+  border-color: rgba(37, 211, 102, 0.3) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light #whatsapp-contact-card h4,
+.light #whatsapp-contact-card h4,
+html.light #whatsapp-contact-card h5,
+.light #whatsapp-contact-card h5 {
+  color: #0F172A !important;
+}
+
+html.light #whatsapp-contact-card .text-white,
+.light #whatsapp-contact-card .text-white {
+  color: #0F172A !important;
+}
+
+html.light #whatsapp-contact-card .bg-zinc-950\/60,
+.light #whatsapp-contact-card .bg-zinc-950\/60 {
+  background-color: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+}
+
+html.light ::-webkit-scrollbar-track,
+.light ::-webkit-scrollbar-track {
+  background: #F8FAFC !important;
+}
+
+html.light ::-webkit-scrollbar-thumb,
+.light ::-webkit-scrollbar-thumb {
+  background: #CBD5E1 !important;
+}
+
+/* LOCKED DARK MODE STYLE OVERRIDES SPECIFICALLY FOR THE INTERACTIVE MAP SECTION */
+html.light #interactive-map-section,
+.light #interactive-map-section {
+  background-color: #070707 !important;
+  color: #ffffff !important;
+  border-color: #18181b !important;
+}
+
+html.light #interactive-map-section .bg-\[\#0c0c0e\],
+.light #interactive-map-section .bg-\[\#0c0c0e\] {
+  background-color: #0c0c0e !important;
+  border-color: #18181b !important;
+}
+
+html.light #interactive-map-section .bg-\[\#050506\],
+.light #interactive-map-section .bg-\[\#050506\] {
+  background-color: #050506 !important;
+  border-color: #18181b !important;
+}
+
+html.light #interactive-map-section .bg-\[\#0b0b0d\],
+.light #interactive-map-section .bg-\[\#0b0b0d\] {
+  background-color: #0b0b0d !important;
+  border-color: #18181b !important;
+}
+
+html.light #interactive-map-section .bg-zinc-950,
+.light #interactive-map-section .bg-zinc-950,
+html.light #interactive-map-section .bg-zinc-950\/40,
+.light #interactive-map-section .bg-zinc-950\/40,
+html.light #interactive-map-section .bg-zinc-950\/60,
+.light #interactive-map-section .bg-zinc-950\/60,
+html.light #interactive-map-section .bg-zinc-900\/60,
+.light #interactive-map-section .bg-zinc-900\/60 {
+  background-color: rgba(9, 9, 11, 0.6) !important;
+  border-color: rgba(24, 24, 27, 0.8) !important;
+}
+
+html.light #interactive-map-section .bg-gradient-to-b.from-\[\#111\].to-\[\#0a0a0b\],
+.light #interactive-map-section .bg-gradient-to-b.from-\[\#111\].to-\[\#0a0a0b\] {
+  background: linear-gradient(to bottom, #111111, #0a0a0b) !important;
+  border-color: rgba(16, 185, 129, 0.2) !important;
+  color: #ffffff !important;
+}
+
+html.light #interactive-map-section .bg-gradient-to-r.from-zinc-950.to-\[\#0e1612\],
+.light #interactive-map-section .bg-gradient-to-r.from-zinc-950.to-\[\#0e1612\] {
+  background: linear-gradient(to right, #09090b, #0e1612) !important;
+  border-color: rgba(6, 78, 59, 0.4) !important;
+}
+
+html.light #interactive-map-section .bg-gradient-to-br.from-emerald-500\/10.to-emerald-600\/5,
+.light #interactive-map-section .bg-gradient-to-br.from-emerald-500\/10.to-emerald-600\/5 {
+  background: linear-gradient(to bottom right, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05)) !important;
+  border-color: rgba(16, 185, 129, 0.2) !important;
+}
+
+html.light #interactive-map-section .bg-emerald-500\/10,
+.light #interactive-map-section .bg-emerald-500\/10,
+html.light #interactive-map-section .bg-emerald-500\/20,
+.light #interactive-map-section .bg-emerald-500\/20 {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  border-color: rgba(16, 185, 129, 0.2) !important;
+}
+
+html.light #interactive-map-section .border-zinc-900,
+.light #interactive-map-section .border-zinc-900,
+html.light #interactive-map-section .border-zinc-800,
+.light #interactive-map-section .border-zinc-800 {
+  border-color: #18181b !important;
+}
+
+html.light #interactive-map-section .border-emerald-500\/20,
+.light #interactive-map-section .border-emerald-500\/20,
+html.light #interactive-map-section .border-emerald-500\/30,
+.light #interactive-map-section .border-emerald-500\/30 {
+  border-color: rgba(16, 185, 129, 0.2) !important;
+}
+
+html.light #interactive-map-section .opacity-40,
+.light #interactive-map-section .opacity-40 {
+  opacity: 0.40 !important;
+}
+
+html.light #interactive-map-section .opacity-80,
+.light #interactive-map-section .opacity-80 {
+  opacity: 0.80 !important;
+}
+
+html.light #interactive-map-section .text-white,
+.light #interactive-map-section .text-white {
+  color: #ffffff !important;
+}
+
+html.light #interactive-map-section .text-zinc-100,
+.light #interactive-map-section .text-zinc-100 {
+  color: #f4f4f5 !important;
+}
+
+html.light #interactive-map-section .text-zinc-200,
+.light #interactive-map-section .text-zinc-200,
+html.light #interactive-map-section *[class*="text-zinc-200"],
+.light #interactive-map-section *[class*="text-zinc-200"] {
+  color: #e4e4e7 !important;
+}
+
+html.light #interactive-map-section .text-zinc-300,
+.light #interactive-map-section .text-zinc-300,
+html.light #interactive-map-section *[class*="text-zinc-300"],
+.light #interactive-map-section *[class*="text-zinc-300"] {
+  color: #d4d4d8 !important;
+}
+
+html.light #interactive-map-section .text-zinc-400,
+.light #interactive-map-section .text-zinc-400,
+html.light #interactive-map-section *[class*="text-zinc-400"],
+.light #interactive-map-section *[class*="text-zinc-400"] {
+  color: #a1a1aa !important;
+}
+
+html.light #interactive-map-section .text-zinc-500,
+.light #interactive-map-section .text-zinc-500,
+html.light #interactive-map-section *[class*="text-zinc-500"],
+.light #interactive-map-section *[class*="text-zinc-500"] {
+  color: #71717a !important;
+}
+
+html.light #interactive-map-section .text-zinc-650,
+.light #interactive-map-section .text-zinc-600,
+html.light #interactive-map-section *[class*="text-zinc-600"],
+.light #interactive-map-section *[class*="text-zinc-600"] {
+  color: #52525b !important;
+}
+
+html.light #interactive-map-section .text-emerald-400,
+.light #interactive-map-section .text-emerald-400,
+html.light #interactive-map-section *[class*="text-emerald-400"],
+.light #interactive-map-section *[class*="text-emerald-400"] {
+  color: #34d399 !important;
+}
+
+html.light #interactive-map-section .text-blue-400,
+.light #interactive-map-section .text-blue-400,
+html.light #interactive-map-section *[class*="text-blue-400"],
+.light #interactive-map-section *[class*="text-blue-400"] {
+  color: #60a5fa !important;
+}
+
+html.light #interactive-map-section .bg-blue-500\/10,
+.light #interactive-map-section .bg-blue-500\/10 {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+  border-color: rgba(59, 130, 246, 0.2) !important;
+}
+
+html.light #interactive-map-section .text-amber-200,
+.light #interactive-map-section .text-amber-200,
+html.light #interactive-map-section *[class*="text-amber-200"],
+.light #interactive-map-section *[class*="text-amber-200"] {
+  color: #fef08a !important;
+}
+
+html.light #interactive-map-section .text-red-100,
+.light #interactive-map-section .text-red-100,
+html.light #interactive-map-section *[class*="text-red-100"],
+.light #interactive-map-section *[class*="text-red-100"] {
+  color: #fee2e2 !important;
+}
+
+html.light #interactive-map-section .fill-\[\#121214\],
+.light #interactive-map-section .fill-\[\#121214\] {
+  fill: #121214 !important;
+  stroke: #3f3f46 !important;
+}
+
+html.light #interactive-map-section .fill-\[\#0d0d0f\],
+.light #interactive-map-section .fill-\[\#0d0d0f\] {
+  fill: #0d0d0f !important;
+  stroke: #27272a !important;
+}
+
+html.light #interactive-map-section .fill-zinc-800,
+.light #interactive-map-section .fill-zinc-800,
+html.light #interactive-map-section .stroke-zinc-700,
+.light #interactive-map-section .stroke-zinc-700,
+html.light #interactive-map-section .stroke-zinc-800,
+.light #interactive-map-section .stroke-zinc-800 {
+  fill: #27272a !important;
+  stroke: #3f3f46 !important;
+}
+
+html.light #interactive-map-section .fill-zinc-650,
+.light #interactive-map-section .fill-zinc-600,
+html.light #interactive-map-section *[class*="fill-zinc-600"],
+.light #interactive-map-section *[class*="fill-zinc-600"] {
+  fill: #52525b !important;
+}
+
+/* LOCKED DARK MODE OVERRIDES SPECIFICALLY FOR THE CUSTOM GUITAR WIDGET IN HERO SECTION */
+html.light #locked-dark-guitar-widget,
+.light #locked-dark-guitar-widget {
+  color: #ffffff !important;
+}
+
+html.light #locked-dark-guitar-widget .bg-zinc-950\/95,
+.light #locked-dark-guitar-widget .bg-zinc-950\/95,
+html.light #locked-dark-guitar-widget [class*="bg-zinc-950/95"],
+.light #locked-dark-guitar-widget [class*="bg-zinc-950/95"] {
+  background-color: rgba(9, 9, 11, 0.95) !important;
+  border-color: #181c20 !important;
+}
+
+html.light #locked-dark-guitar-widget button,
+.light #locked-dark-guitar-widget button {
+  color: #a1a1aa !important; /* text-zinc-400 */
+}
+
+html.light #locked-dark-guitar-widget button:hover,
+.light #locked-dark-guitar-widget button:hover {
+  color: #f4f4f5 !important; /* text-zinc-100 */
+}
+
+/* For active switcher buttons */
+html.light #locked-dark-guitar-widget button.bg-crimson,
+.light #locked-dark-guitar-widget button.bg-crimson {
+  background-color: #e62129 !important; /* crimson */
+  color: #ffffff !important;
+}
+
+/* Keep the card background container and edges dark */
+html.light #locked-dark-guitar-widget .bg-black,
+.light #locked-dark-guitar-widget .bg-black,
+html.light #locked-dark-guitar-widget [class*="bg-black"],
+.light #locked-dark-guitar-widget [class*="bg-black"] {
+  background-color: #000000 !important;
+  border-color: rgba(39, 39, 42, 0.8) !important;
+}
+
+/* Specific elements inside the guitar interactive widget card */
+html.light #locked-dark-guitar-widget .text-zinc-450,
+.light #locked-dark-guitar-widget .text-zinc-450,
+html.light #locked-dark-guitar-widget *[class*="text-zinc-450"],
+.light #locked-dark-guitar-widget *[class*="text-zinc-450"] {
+  color: #94a3b8 !important; /* soft readable slate */
+}
+
+html.light #locked-dark-guitar-widget .text-zinc-650,
+.light #locked-dark-guitar-widget .text-zinc-650,
+html.light #locked-dark-guitar-widget *[class*="text-zinc-650"],
+.light #locked-dark-guitar-widget *[class*="text-zinc-650"] {
+  color: #52525b !important; /* zinc-600 */
+}
+
+html.light #locked-dark-guitar-widget .bg-zinc-900,
+.light #locked-dark-guitar-widget .bg-zinc-900,
+html.light #locked-dark-guitar-widget [class*="bg-zinc-900"],
+.light #locked-dark-guitar-widget [class*="bg-zinc-900"] {
+  background-color: #181c20 !important;
+  border-color: #27272a !important;
+}
+
+html.light #locked-dark-guitar-widget button.bg-zinc-900,
+.light #locked-dark-guitar-widget button.bg-zinc-900 {
+  background-color: #181c20 !important;
+  color: #a1a1aa !important;
+  border-color: #27272a !important;
+}
+
+html.light #locked-dark-guitar-widget button.bg-zinc-900:hover,
+.light #locked-dark-guitar-widget button.bg-zinc-900:hover {
+  background-color: rgba(24, 28, 32, 0.6) !important;
+  color: #ffffff !important;
+  border-color: rgba(230, 33, 41, 0.4) !important;
+}
+
+/* Ensure the audio reactive glow and lines look exactly dark-themed */
+html.light #locked-dark-guitar-widget .border-zinc-800\/50,
+.light #locked-dark-guitar-widget .border-zinc-800\/50 {
+  border-color: rgba(39, 39, 42, 0.5) !important;
+}
+
+html.light #locked-dark-guitar-widget .border-crimson\/20,
+.light #locked-dark-guitar-widget .border-crimson\/20 {
+  border-color: rgba(230, 33, 41, 0.2) !important;
+}
+
+html.light #locked-dark-guitar-widget .border-zinc-900,
+.light #locked-dark-guitar-widget .border-zinc-900 {
+  border-color: #181c20 !important;
+}
+
+html.light #locked-dark-guitar-widget .bg-zinc-800,
+.light #locked-dark-guitar-widget .bg-zinc-800,
+html.light #locked-dark-guitar-widget [class*="bg-zinc-800"],
+.light #locked-dark-guitar-widget [class*="bg-zinc-800"] {
+  background-color: #27272a !important;
+}
+
+/* Light mode overrides for the hover band badges of the judges/powerhouses (e.g., ZIFACTOR, BIP / EX-SLANK, GIGI, EDANE, SESSION LEGEND) */
+html.light .judge-band-badge,
+.light .judge-band-badge {
+  background-color: #F8FAFC !important; /* solid/high-contrast light slate bg */
+  color: #B91C1C !important;            /* rich dark red/crimson for stellar accessibility */
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(185, 28, 28, 0.35) !important; /* crimson border */
+  box-shadow: 0 2px 8px rgba(185, 28, 28, 0.08) !important;
+}
+
+
+

@@ -310,7 +310,7 @@ export default function HeroSection({ onCtaClick }: HeroSectionProps) {
 
           <div className="flex items-center gap-6 pt-4 text-xs text-steel font-mono">
             <div className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping flex-shrink-0" />
               <span className="text-slate-200">Part of The Rock Campus Ecosystem</span>
             </div>
             <span>•</span>
@@ -320,7 +320,7 @@ export default function HeroSection({ onCtaClick }: HeroSectionProps) {
         </div>
 
         {/* Right: Sparkling glowing Guitar Emblem Circle */}
-        <div className="lg:col-span-12 xl:col-span-5 flex flex-col items-center justify-center py-6 gap-6">
+        <div id="locked-dark-guitar-widget" className="lg:col-span-12 xl:col-span-5 flex flex-col items-center justify-center py-6 gap-6">
           
           {/* View Switcher Controls floating above the card */}
           <div className="z-30 flex gap-1 p-1 bg-zinc-950/95 border border-zinc-900 rounded-full text-[10px] font-mono shadow-[0_4px_25px_rgba(0,0,0,0.8)] select-none">
@@ -333,7 +333,7 @@ export default function HeroSection({ onCtaClick }: HeroSectionProps) {
                   : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
-              🤘 OFFICIAL FLYER
+              🤘 LET'S ROCK!
             </button>
             <button
               onClick={() => setCardView('interactive')}
@@ -389,7 +389,7 @@ export default function HeroSection({ onCtaClick }: HeroSectionProps) {
                 <div className="absolute inset-0 z-0 select-none overflow-hidden rounded-3xl" onClick={() => playLiveRiff(Math.random() > 0.5 ? 'power' : 'solo')}>
                   <img 
                     src="https://drive.google.com/thumbnail?id=1Ul8VuapS2C2LVKMgnuXFxHpm2EJPxR-U&sz=w1000" 
-                    alt="GMG Vol 2 Official Flyer" 
+                    alt="GMG Vol 2 Let's Rock!" 
                     referrerPolicy="no-referrer"
                     onLoad={() => setLogoLoaded(true)}
                     onError={() => setLogoError(true)}

@@ -42,7 +42,7 @@ function JudgeCard({ judge }: JudgeCardProps) {
           <span className="absolute inset-0 border-2 border-transparent group-hover:border-crimson/40 transition-all duration-300 rounded-t-xl pointer-events-none" />
 
           {/* Hover Badge */}
-          <div className="absolute bottom-3 left-3 bg-black/80 backdrop-blur-md px-3 py-1 rounded text-[10px] uppercase font-mono tracking-wider text-crimson font-black border border-crimson/30 pointer-events-none">
+          <div className="judge-band-badge absolute bottom-3 left-3 bg-black/80 backdrop-blur-md px-3 py-1 rounded text-[10px] uppercase font-mono tracking-wider text-crimson font-black border border-crimson/30 pointer-events-none">
             {judge.band ? `${judge.band}` : 'SESSION LEGEND'}
           </div>
         </div>
@@ -54,17 +54,7 @@ function JudgeCard({ judge }: JudgeCardProps) {
               <div className="text-[10px] font-mono text-crimson tracking-widest uppercase font-extrabold flex items-center gap-1">
                 <Award className="w-3.5 h-3.5 text-crimson" /> {judge.role}
               </div>
-              {judge.articleUrl && (
-                <a
-                  href={judge.articleUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[9px] font-mono hover:text-crimson text-zinc-500 flex items-center gap-0.5 border border-zinc-800 hover:border-crimson/50 bg-zinc-950/50 px-1.5 py-0.5 rounded transition-all"
-                  title="Buka artikel sumber asli"
-                >
-                  Sumber ↗
-                </a>
-              )}
+
             </div>
             <h3 className="font-heading text-lg font-black text-white hover:text-crimson tracking-tight transition-colors uppercase">
               {judge.name}
