@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Montserrat", sans-serif;
+  
+  --color-dark: #0C0C0C;
+  --color-crimson: #E62129;
+  --color-blaze: #FF6B00;
+  --color-steel: #8B8B8B;
+  --color-card-dark: #1A1A1A;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  background-color: var(--color-dark);
+}
+
+body {
+  color: var(--color-white);
+  overflow-x: hidden;
+}
+
+/* Elegant Dark Headline styling */
+.headline {
+  font-family: 'Montserrat', var(--font-heading), sans-serif;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+/* Color accents and tokens */
+.accent-red {
+  color: #E62129;
+}
+
+.bg-charcoal {
+  background-color: #141414;
+}
+
+.border-red {
+  border-color: #E62129;
+}
+
+/* Glowing animations and aesthetic touches */
+.glow-red, .btn-glow {
+  box-shadow: 0 0 15px rgba(230, 33, 41, 0.45);
+}
+
+.glow-orange {
+  box-shadow: 0 0 15px rgba(255, 107, 0, 0.35);
+}
+
+.glow-text-red {
+  text-shadow: 0 0 8px rgba(230, 33, 41, 0.6);
+}
+
+.glow-text-orange {
+  text-shadow: 0 0 8px rgba(255, 107, 0, 0.5);
+}
+
+/* Grayscale to colored hover cards for Judges */
+.judge-card {
+  filter: grayscale(100%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.judge-card:hover {
+  filter: grayscale(0%);
+  border-color: #E62129;
+}
+
+/* Elegant Dark Custom Left Border Stats */
+.stat-box {
+  border-left: 4px solid #E62129;
+  background: linear-gradient(90deg, rgba(230, 33, 41, 0.1) 0%, transparent 100%);
+}
+
+/* Financial Badge Elements */
+.roi-pill {
+  background: rgba(255, 107, 0, 0.1);
+  border: 1px solid rgba(255, 107, 0, 0.3);
+  color: #FF6B00;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0C0C0C;
+}
+::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E62129;
+}
+

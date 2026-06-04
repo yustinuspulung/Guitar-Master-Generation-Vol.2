@@ -1,0 +1,6 @@
+{
+  "name": "Guitar Master Generation Vol. 2 Landing Page",
+  "description": "Digital pitch deck, investment proposal, and track record dashboard for Guitar Master Generation Vol. 2.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
