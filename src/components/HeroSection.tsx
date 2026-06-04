@@ -301,7 +301,7 @@ export default function HeroSection({ onCtaClick }: HeroSectionProps) {
               className="group relative cursor-pointer overflow-hidden rounded bg-crimson px-8 py-4 font-heading text-base font-extrabold tracking-wider text-white transition-all hover:bg-red-700 active:scale-95 glow-red flex items-center justify-center gap-2"
             >
               <span className="relative z-10 flex items-center gap-2">
-                DAPATKAN PITCH DECK MITRA
+                DAPATKAN PITCH DECK
                 <span className="text-lg transition-transform group-hover:translate-x-1.5 font-bold">→</span>
               </span>
               <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-blaze to-red-500 transition-all group-hover:translate-x-0 duration-300 z-0" />

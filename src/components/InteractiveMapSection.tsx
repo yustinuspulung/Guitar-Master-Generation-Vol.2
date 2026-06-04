@@ -628,7 +628,7 @@ export default function InteractiveMapSection() {
               </div>
 
               {/* Dot Indicators at the absolute bottom with short titles for clear map/carousel synchronization */}
-              <div className="flex justify-center items-center gap-1.5 border-t border-zinc-900 pt-4 overflow-x-auto scrollbar-none">
+              <div className="flex justify-start md:justify-center items-center gap-1.5 border-t border-zinc-900 pt-4 overflow-x-auto scrollbar-none px-4 md:px-0">
                 {regionIds.map((regId) => {
                   const regName = auditionZones.find(z => z.id === regId)?.region.split(' ')[0] || regId;
                   const isActive = regId === selectedRegionId;
@@ -636,7 +636,7 @@ export default function InteractiveMapSection() {
                     <button
                       key={regId}
                       onClick={() => selectRegion(regId)}
-                      className={`px-2.5 py-1.5 rounded-lg font-mono text-[9px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer flex items-center gap-1 border ${
+                      className={`px-2.5 py-1.5 rounded-lg font-mono text-[9px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer flex items-center gap-1 border flex-shrink-0 ${
                         isActive
                           ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 shadow-[0_0_8px_rgba(16,185,129,0.15)] scale-105 font-bold'
                           : 'bg-zinc-950/40 border-zinc-900/60 text-zinc-500 hover:text-zinc-400 hover:bg-zinc-900/20'

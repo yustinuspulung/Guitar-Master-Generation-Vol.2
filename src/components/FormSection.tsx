@@ -539,9 +539,15 @@ Thank you for your trust. Build the legacy together.
             </a>
           </div>
 
-          <div className="pt-6 text-[11px] font-mono text-zinc-600 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <span>© 2026 GUITAR MASTER GENERATION & THE ROCK CAMPUS. ALL RIGHTS RESERVED.</span>
-            <span>LICENSED FROM TRC CORE TEAM • OLIVE MGMT PROUD PARTNER</span>
+          <div className="pt-6 text-[8.5px] sm:text-[10px] md:text-[11px] font-mono text-zinc-600 flex flex-col md:flex-row items-center md:justify-between gap-3 text-center w-full leading-relaxed select-none">
+            <span className="md:text-left max-w-full">
+              <span className="inline-block mr-1">© 2026 GUITAR MASTER GENERATION & THE ROCK CAMPUS.</span>
+              <span className="inline-block whitespace-nowrap">ALL RIGHTS RESERVED.</span>
+            </span>
+            <span className="md:text-right max-w-full">
+              <span className="inline-block mr-1">LICENSED FROM TRC CORE TEAM</span>
+              <span className="inline-block whitespace-nowrap">• OLIVE MGMT PROUD PARTNER</span>
+            </span>
           </div>
         </div>
 

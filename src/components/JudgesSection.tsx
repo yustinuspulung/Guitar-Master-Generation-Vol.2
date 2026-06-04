@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Award, ShieldAlert, Sparkles, User, Guitar } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Award, ShieldAlert, Sparkles, User, Guitar, ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion } from 'motion/react';
 import { mainJudges, auditionJudges } from '../data';
 import { Juror } from '../types';
 
@@ -10,9 +11,15 @@ interface JudgeCardProps {
 
 function JudgeCard({ judge }: JudgeCardProps) {
   const [imgError, setImgError] = useState(false);
+  const [isColorActive, setIsColorActive] = useState(false);
 
   return (
-    <div className="judge-card group relative bg-[#121212]/90 border border-zinc-900 rounded-xl overflow-hidden flex flex-col justify-between hover:border-crimson/50 hover:shadow-2xl hover:shadow-crimson/5 transition-all duration-300">
+    <div 
+      onClick={() => setIsColorActive(prev => !prev)}
+      className={`judge-card group relative bg-[#121212]/90 border rounded-xl overflow-hidden flex flex-col justify-between hover:border-crimson/50 hover:shadow-2xl hover:shadow-crimson/5 transition-all duration-300 cursor-pointer ${
+        isColorActive ? 'border-crimson/50 shadow-2xl shadow-crimson/5' : 'border-zinc-900'
+      }`}
+    >
       <div>
         {/* Photo container */}
         <div className="relative aspect-[4/3] w-full bg-zinc-950 overflow-hidden border-b border-zinc-900">
@@ -33,13 +40,19 @@ function JudgeCard({ judge }: JudgeCardProps) {
               src={judge.imageUrl}
               alt={judge.name}
               onError={() => setImgError(true)}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 object-center grayscale group-hover:grayscale-0 transition-all filter brightness-95 group-hover:brightness-105"
+              className={`w-full h-full object-cover object-center transition-all duration-500 filter ${
+                isColorActive 
+                  ? 'grayscale-0 brightness-105 scale-105' 
+                  : 'grayscale group-hover:grayscale-0 brightness-95 group-hover:brightness-105 group-hover:scale-105'
+              }`}
               referrerPolicy="no-referrer"
             />
           )}
 
           {/* Glowing outer frame lines on hover */}
-          <span className="absolute inset-0 border-2 border-transparent group-hover:border-crimson/40 transition-all duration-300 rounded-t-xl pointer-events-none" />
+          <span className={`absolute inset-0 border-2 border-transparent transition-all duration-300 rounded-t-xl pointer-events-none ${
+            isColorActive ? 'border-crimson/40' : 'group-hover:border-crimson/40'
+          }`} />
 
           {/* Hover Badge */}
           <div className="judge-band-badge absolute bottom-3 left-3 bg-black/80 backdrop-blur-md px-3 py-1 rounded text-[10px] uppercase font-mono tracking-wider text-crimson font-black border border-crimson/30 pointer-events-none">
@@ -99,7 +112,15 @@ function JudgeCard({ judge }: JudgeCardProps) {
 export default function JudgesSection() {
   const [activeTab, setActiveTab] = useState<'main' | 'audition'>('main');
 
-  const currentJudges = activeTab === 'main' ? mainJudges : auditionJudges;
+  // Horizontal swipe listener on the flex box using motion coordinate info offsets
+  const handleDragEnd = (event: any, info: { offset: { x: number } }) => {
+    const swipeThreshold = 50; // pixels trigger threshold
+    if (info.offset.x < -swipeThreshold) {
+      setActiveTab('audition');
+    } else if (info.offset.x > swipeThreshold) {
+      setActiveTab('main');
+    }
+  };
 
   return (
     <section className="relative bg-zinc-950 border-b border-zinc-900 py-20 px-4 md:px-8">
@@ -125,42 +146,104 @@ export default function JudgesSection() {
           </p>
         </div>
 
-        {/* Tab Filters with Oswald / Montserrat uppercase tags */}
-        <div className="flex justify-center">
-          <div className="bg-card-dark border border-zinc-900 rounded-lg p-1.5 flex gap-2">
+        {/* Tab Filters with Premium Unified Segment Control */}
+        <div className="flex flex-col items-center gap-6">
+          <div className="bg-[#121212] border border-zinc-900 rounded-xl p-1.5 flex gap-1 w-full max-w-xl shadow-2xl relative">
             
             {/* Tab 1: Main Judges */}
             <button
               onClick={() => setActiveTab('main')}
-              className={`px-6 py-3 rounded font-heading text-xs font-black tracking-widest uppercase transition-all duration-300 cursor-pointer ${
+              className={`flex-1 py-3 px-3 sm:px-6 rounded-lg font-heading text-[10px] sm:text-xs font-black tracking-widest uppercase transition-all duration-300 cursor-pointer text-center relative z-10 ${
                 activeTab === 'main'
-                  ? 'bg-crimson text-white glow-red shadow-lg'
-                  : 'text-steel hover:text-white bg-transparent'
+                  ? 'text-white'
+                  : 'text-zinc-500 hover:text-zinc-350'
               }`}
             >
-              MAIN JUDGES (PANGGUNG UTAMA)
+              Main Judges (Panggung Utama)
+              {activeTab === 'main' && (
+                <motion.div
+                  layoutId="activeTabPill"
+                  className="absolute inset-0 bg-crimson rounded-lg -z-10 glow-red"
+                  transition={{ type: 'spring', stiffness: 300, damping: 28 }}
+                />
+              )}
             </button>
 
             {/* Tab 2: Audition Judges */}
             <button
               onClick={() => setActiveTab('audition')}
-              className={`px-6 py-3 rounded font-heading text-xs font-black tracking-widest uppercase transition-all duration-300 cursor-pointer ${
+              className={`flex-1 py-3 px-3 sm:px-6 rounded-lg font-heading text-[10px] sm:text-xs font-black tracking-widest uppercase transition-all duration-300 cursor-pointer text-center relative z-10 ${
                 activeTab === 'audition'
-                  ? 'bg-crimson text-white glow-red shadow-lg'
-                  : 'text-steel hover:text-white bg-transparent'
+                  ? 'text-white'
+                  : 'text-zinc-500 hover:text-zinc-350'
               }`}
             >
-              ONLINE AUDITION JUDGES
+              Online Audition Judges
+              {activeTab === 'audition' && (
+                <motion.div
+                  layoutId="activeTabPill"
+                  className="absolute inset-0 bg-crimson rounded-lg -z-10 glow-red"
+                  transition={{ type: 'spring', stiffness: 300, damping: 28 }}
+                />
+              )}
             </button>
 
           </div>
+
+          {/* Low-profile console indicator bar for sliding states */}
+          <div className="flex items-center gap-3 w-48 sm:w-64 select-none">
+            <button 
+              onClick={() => setActiveTab('main')}
+              className="flex-1 h-1.5 rounded-full cursor-pointer overflow-hidden bg-zinc-900 border border-zinc-850 hover:border-zinc-700 transition-all duration-300"
+              title="Main Judges"
+            >
+              <div className={`h-full bg-crimson transition-all duration-500 ease-out ${activeTab === 'main' ? 'w-full glow-red' : 'w-0'}`} />
+            </button>
+            <span className="text-[9px] font-mono font-bold text-zinc-650 tracking-wider">SLIDE</span>
+            <button 
+              onClick={() => setActiveTab('audition')}
+              className="flex-1 h-1.5 rounded-full cursor-pointer overflow-hidden bg-zinc-900 border border-zinc-850 hover:border-zinc-700 transition-all duration-300"
+              title="Online Audition Judges"
+            >
+              <div className={`h-full bg-crimson transition-all duration-500 ease-out ${activeTab === 'audition' ? 'w-full glow-red' : 'w-0'}`} />
+            </button>
+          </div>
         </div>
 
-        {/* Photo Portrait Grid with Black-and-White to Color Crimson border triggers */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-4">
-          {currentJudges.map((judge) => (
-            <JudgeCard key={judge.id} judge={judge} />
-          ))}
+        {/* Sliding category container */}
+        <div className="relative px-0 sm:px-4 overflow-visible">
+          
+          {/* Main viewport limit */}
+          <div className="overflow-hidden w-full">
+            <motion.div
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              onDragEnd={handleDragEnd}
+              animate={{ x: activeTab === 'main' ? '0%' : '-50%' }}
+              transition={{ type: 'spring', stiffness: 265, damping: 26 }}
+              className="flex w-[200%] cursor-grab active:cursor-grabbing"
+            >
+              {/* Slide 1: Main Judges (Grid Layout) */}
+              <div className="w-1/2 flex-shrink-0 px-2 sm:px-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {mainJudges.map((judge) => (
+                    <JudgeCard key={judge.id} judge={judge} />
+                  ))}
+                </div>
+              </div>
+
+              {/* Slide 2: Audition Judges (Grid Layout) */}
+              <div className="w-1/2 flex-shrink-0 px-2 sm:px-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {auditionJudges.map((judge) => (
+                    <JudgeCard key={judge.id} judge={judge} />
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
         </div>
 
         {/* Brand/Sponsors alignment note */}

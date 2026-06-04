@@ -106,7 +106,7 @@ export default function App() {
             <button
               id="header-cta-nav"
               onClick={() => scrollToSection('investment-form-section')}
-              className="px-5 py-2.5 bg-crimson hover:bg-red-700 text-white font-heading text-[10px] font-black tracking-widest rounded transition-all cursor-pointer glow-red flex items-center gap-1.5"
+              className="px-5 py-2.5 bg-crimson hover:bg-red-700 text-white force-text-white font-heading text-[10px] font-black tracking-widest rounded transition-all cursor-pointer glow-red flex items-center gap-1.5"
             >
               LET'S TALK BUSINESS <ArrowRight className="w-3.5 h-3.5" />
             </button>
@@ -123,7 +123,7 @@ export default function App() {
             </button>
             <button
               onClick={() => scrollToSection('investment-form-section')}
-              className="px-3.5 py-1.5 bg-crimson text-white font-heading text-[10px] font-black tracking-widest rounded glow-red cursor-pointer"
+              className="px-3.5 py-1.5 bg-crimson text-white force-text-white font-heading text-[10px] font-black tracking-widest rounded glow-red cursor-pointer"
             >
               LET'S TALK
             </button>

@@ -730,5 +730,12 @@ html.light .judge-band-badge,
   box-shadow: 0 2px 8px rgba(185, 28, 28, 0.08) !important;
 }
 
+/* Ensure force-text-white is always white, ignoring any general light mode resets */
+.force-text-white,
+html.light .force-text-white,
+.light .force-text-white {
+  color: #FFFFFF !important;
+}
+
 
 
