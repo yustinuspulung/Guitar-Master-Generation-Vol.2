@@ -255,7 +255,7 @@ export default function HeroSection({ onCtaClick }: HeroSectionProps) {
           {/* Partnership level tag */}
           <div className="inline-flex items-center gap-2 bg-crimson/10 border border-crimson/30 px-3 py-1 rounded-full text-xs font-semibold tracking-wider text-crimson uppercase animate-pulse">
             <Flame className="w-3.5 h-3.5 fill-crimson" />
-            INVESTMENT OPPORTUNITY ROADSHOW 2026
+            TRC TOUR 2026 ACTIVATION
           </div>
 
           <h1 className="headline text-5xl sm:text-6xl lg:text-8xl font-black text-white leading-[0.9] tracking-[ -0.05em]">
