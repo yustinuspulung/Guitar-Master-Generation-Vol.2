@@ -111,15 +111,34 @@ function JudgeCard({ judge }: JudgeCardProps) {
 
 export default function JudgesSection() {
   const [activeTab, setActiveTab] = useState<'main' | 'audition'>('main');
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchStartY, setTouchStartY] = useState<number | null>(null);
 
-  // Horizontal swipe listener on the flex box using motion coordinate info offsets
-  const handleDragEnd = (event: any, info: { offset: { x: number } }) => {
-    const swipeThreshold = 50; // pixels trigger threshold
-    if (info.offset.x < -swipeThreshold) {
-      setActiveTab('audition');
-    } else if (info.offset.x > swipeThreshold) {
-      setActiveTab('main');
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+    setTouchStartY(e.touches[0].clientY);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null || touchStartY === null) return;
+    
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    
+    const deltaX = touchStartX - touchEndX;
+    const deltaY = touchStartY - touchEndY;
+    
+    // Switch slides if horizontal swipe exceeds 40 pixels and is primarily horizontal
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 40) {
+      if (deltaX > 0) {
+        setActiveTab('audition');
+      } else {
+        setActiveTab('main');
+      }
     }
+    
+    setTouchStartX(null);
+    setTouchStartY(null);
   };
 
   return (
@@ -214,15 +233,15 @@ export default function JudgesSection() {
         <div className="relative px-0 sm:px-4 overflow-visible">
           
           {/* Main viewport limit */}
-          <div className="overflow-hidden w-full">
+          <div 
+            className="overflow-hidden w-full touch-pan-y"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
             <motion.div
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.2}
-              onDragEnd={handleDragEnd}
               animate={{ x: activeTab === 'main' ? '0%' : '-50%' }}
               transition={{ type: 'spring', stiffness: 265, damping: 26 }}
-              className="flex w-[200%] cursor-grab active:cursor-grabbing"
+              className="flex w-[200%]"
             >
               {/* Slide 1: Main Judges (Grid Layout) */}
               <div className="w-1/2 flex-shrink-0 px-2 sm:px-4">

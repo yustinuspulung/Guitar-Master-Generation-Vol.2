@@ -298,7 +298,7 @@ export default function HeroSection({ onCtaClick }: HeroSectionProps) {
               href="https://wa.me/6281288805482?text=Halo%20Mbak%20Eva%20Indriyani%20(Manager%20Ezra%20Simanjuntak),%20saya%20tertarik%20dengan%20kemitraan%20dan%20proposal%20Pitch%20Deck%20GMG%20Vol.%202."
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative cursor-pointer overflow-hidden rounded bg-crimson px-8 py-4 font-heading text-base font-extrabold tracking-wider text-white transition-all hover:bg-red-700 active:scale-95 glow-red flex items-center justify-center gap-2"
+              className="group relative cursor-pointer overflow-hidden rounded bg-crimson px-8 py-4 font-heading text-base font-extrabold tracking-wider text-white force-text-white transition-all hover:bg-red-700 active:scale-95 glow-red flex items-center justify-center gap-2"
             >
               <span className="relative z-10 flex items-center gap-2">
                 DAPATKAN PITCH DECK

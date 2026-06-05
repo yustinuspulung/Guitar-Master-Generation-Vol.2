@@ -192,7 +192,7 @@ export default function App() {
             
             <button
               onClick={() => scrollToSection('investment-form-section')}
-              className="w-full py-3.5 bg-crimson hover:bg-red-700 text-white font-heading text-xs font-black tracking-widest rounded text-center block glow-red"
+              className="w-full py-3.5 bg-crimson hover:bg-red-700 text-white force-text-white font-heading text-xs font-black tracking-widest rounded text-center block glow-red"
             >
               DAPATKAN PITCH DECK
             </button>
