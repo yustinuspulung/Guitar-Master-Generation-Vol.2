@@ -40,7 +40,7 @@ function JudgeCard({ judge }: JudgeCardProps) {
               src={judge.imageUrl}
               alt={judge.name}
               onError={() => setImgError(true)}
-              className={`w-full h-full object-cover object-center transition-all duration-500 filter ${
+              className={`w-full h-full object-cover object-[center_15%] transition-all duration-500 filter ${
                 isColorActive 
                   ? 'grayscale-0 brightness-105 scale-105' 
                   : 'grayscale group-hover:grayscale-0 brightness-95 group-hover:brightness-105 group-hover:scale-105'
@@ -86,7 +86,7 @@ function JudgeCard({ judge }: JudgeCardProps) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-[11px] font-mono text-crimson hover:text-white font-black uppercase tracking-wider group-hover:translate-x-1 transition-all duration-300"
               >
-                Selidik Berita & Kiprah Juri ↗
+                Lihat Berita & Kiprah Juri ↗
               </a>
             </div>
           )}
